@@ -131,7 +131,7 @@ body{
   width:100%;
   height:100%;
   display:block;
-  z-index: 1;
+  /*z-index: 1;*/
   /* Set rules to fill background */
   min-height: 100%;
   min-width: 1024px;
@@ -148,12 +148,12 @@ body{
 
 .stars {
   background:transparent url(images/stars.png) repeat top center;
-  z-index:0;
+  z-index:8;
 }
 
 .stars_less {
   background:transparent url(images/stars_less.png) repeat top center;
-  z-index:0;
+  z-index:8;
 }
 
 .twinkling{
@@ -179,6 +179,10 @@ body{
     overflow:hidden;
     min-height: 100%; 
 }
+#world-top{
+  position: relative;
+  z-index: 10;
+}
 #world{
     position:relative;
  /*   left:50%;
@@ -191,6 +195,11 @@ body{
     -webkit-transform-style:preserve-3d;
     -moz-transform-style:preserve-3d;
     -o-transform-style:preserve-3d*/
+}
+#world-top div{
+    -webkit-transform-style:preserve-3d;
+    -moz-transform-style:preserve-3d;
+    -o-transform-style:preserve-3d
 }
 #world div{
     -webkit-transform-style:preserve-3d;

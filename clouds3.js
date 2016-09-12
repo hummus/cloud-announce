@@ -31,6 +31,7 @@ $( document ).ready(function() {
     var layers=[],
         objects=[],
         world=document.getElementById('world'),
+        worldTop=document.getElementById('world-top'),
         viewport=document.getElementById('viewport'),
         d=0,p=400,
         worldXAngle=0,worldYAngle=0;
@@ -52,13 +53,18 @@ $( document ).ready(function() {
     function createCloud(shouldStartOffscreen=false){
         var div=document.createElement('div');
         div.className='cloudBase';
-        var x=screen.width*(3/4)*Math.random();
+        if (! shouldStartOffscreen){
+            var x=screen.width*(3/4)*Math.random();    
+        } else {
+            var x = screen.width + 50;
+        }
+        
         var y=screen.height*(0.5)+(Math.random()*screen.height/8);
         var z=256-(Math.random()*0);
         var t='translateX( '+x+'px ) translateY( '+y+'px ) translateZ( '+z+'px )';
         jQuery.data( div, "offsets", 
             {
-                x:x, 
+                x:x,
                 x_speed: Math.random()*1.2 + 0.2,
                 y:y, 
                 z:z
@@ -112,13 +118,13 @@ $( document ).ready(function() {
         var img=document.createElement('img');
         img.setAttribute('src', 'images/faces_night2.png');
         img.setAttribute('class', 'fg');
-        world.appendChild(img);
+        worldTop.appendChild(img);
 
         var tw = document.createElement('div');
         tw.id = "twinkling";
         world.appendChild(tw);
 
-        for(var j=0;j<11;j++){
+        for(var j=0;j<8;j++){
             objects.push(createCloud());
         }
     }
@@ -179,25 +185,26 @@ $( document ).ready(function() {
                 console.log(base.childNodes);
                 updateCloudImg(base.childNodes);
             }
-        }, 2500);
+            var wrld = $("#world-top");
+            // var tw = $("#twinkling");
+            wrld.removeClass("stars stars_less");
+            // tw.removeClass("twinkling");
+            if ($.inArray(skies[updateSky], ["dawn","night","dusk"])>=0) {
+                var star_class = (skies[updateSky]=="night")?"stars":"stars_less";
+                if (skies[updateSky]=="night") {
+                    // tw.addClass("twinkling")
+                    // tw.addClass("night")
+                    star_class = "stars";
+                }
+                wrld.addClass(star_class);
+            } else {
+                wrld.removeClass("stars stars_less");
+            }
+        }, 4300);
 
         
 
-        var wrld = $("#world");
-        var tw = $("#twinkling");
-        wrld.removeClass("stars stars_less");
-        tw.removeClass("twinkling");
-        if ($.inArray(skies[updateSky], ["dawn","night","dusk"])>=0) {
-            var star_class = (skies[updateSky]=="night")?"stars":"stars_less";
-            if (skies[updateSky]=="night") {
-                tw.addClass("twinkling")
-                tw.addClass("night")
-                star_class = "stars";
-            }
-            wrld.addClass(star_class);
-        } else {
-            wrld.removeClass("stars stars_less");
-        }
+
     }
 
     // function onContainerMouseWheel(event){
@@ -235,9 +242,12 @@ $( document ).ready(function() {
             }           
         }
 
-        for(var j=0;j<removed;j++){
-            objects.push(createCloud());
-        }       
+        if (100*Math.random()<0.5){
+            objects.push(createCloud(shouldStartOffscreen=true));
+        }
+        // for(var j=0;j<removed;j++){
+        //     objects.push(createCloud());
+        // }       
 
         // change bg
         updateCount +=1;
