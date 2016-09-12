@@ -38,6 +38,7 @@ $( document ).ready(function() {
         updateCycle=100,
         updateSky=0,
         skies = ["dawn", "day", "pm", "sunset", "dusk", "night"];
+        // skies = ["day", "dusk", "night"];
 
     // viewport.style.webkitPerspective=p;
     // viewport.style.MozPerspective=p;
@@ -48,7 +49,7 @@ $( document ).ready(function() {
 
     var size = 1024;
 
-    function createCloud(){
+    function createCloud(shouldStartOffscreen=false){
         var div=document.createElement('div');
         div.className='cloudBase';
         var x=screen.width*(3/4)*Math.random();
@@ -94,7 +95,7 @@ $( document ).ready(function() {
         return div;
     }
     // window.addEventListener(,onContainerMouseWheel);
-    window.addEventListener('mousewheel', nextSky);
+    window.addEventListener('click', nextSky);
     // window.addEventListener('mousemove', function(e){
     //     worldYAngle=-(.5-(e.clientX/window.innerWidth))*180;
     //     worldXAngle=(.5-(e.clientY/window.innerHeight))*180;
@@ -117,7 +118,7 @@ $( document ).ready(function() {
         tw.id = "twinkling";
         world.appendChild(tw);
 
-        for(var j=0;j<8;j++){
+        for(var j=0;j<11;j++){
             objects.push(createCloud());
         }
     }
@@ -136,7 +137,7 @@ $( document ).ready(function() {
         }
     }
 
-    function update_cloud_img(cloud_layers){
+    function updateCloudImg(cloud_layers){
         var src='images/cloud_' +skies[updateSky] + '.png';
         // console.log(cloud_layers);
         for(var j=0;j<cloud_layers.length;j++){
@@ -148,25 +149,39 @@ $( document ).ready(function() {
 
     function nextSky(){
         var vp = $("#viewport");
-        vp.removeClass(skies[updateSky])
+        var vpo = $("#viewport-outer");
+        
+        var previousSky = updateSky;
+        vpo.removeClass();
         updateSky += 1;
         if (updateSky>(skies.length-1))
             updateSky=0;
-        vp.addClass(skies[updateSky]);
+        vpo.addClass('viewport');
+        vpo.addClass('zomg');
+        vpo.addClass(skies[previousSky]);
+        vpo.addClass('ontop')
         console.log(skies[updateSky]);
+
+        setTimeout(function(){ 
+            vpo.addClass('invis');
+            vp.removeClass(skies[previousSky]);
+            vp.addClass(skies[updateSky]);
+
+            for (var idx in world.childNodes){
+                if (idx=="0")
+                    continue;
+                
+                var base = world.childNodes[idx];
+                if (base === undefined)
+                    continue;
+                if ((!base.className == "cloudBase") || (base.childNodes === undefined))
+                    continue;
+                console.log(base.childNodes);
+                updateCloudImg(base.childNodes);
+            }
+        }, 2500);
+
         
-        for (var idx in world.childNodes){
-            if (idx==0)
-                continue;
-            
-            var base = world.childNodes[idx];
-            if (base === undefined)
-                continue;
-            if (!base.hasOwnProperty('childNodes'))
-                continue;
-            
-            update_cloud_img(base.childNodes);
-        }
 
         var wrld = $("#world");
         var tw = $("#twinkling");

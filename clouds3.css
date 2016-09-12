@@ -39,6 +39,34 @@ body{
     overflow:hidden
 }
 
+.zomg{
+  -webkit-transition: all ease-in-out 4.5s;
+     -moz-transition: all ease-in-out 4.5s;
+      -ms-transition: all ease-in-out 4.5s;
+       -o-transition: all ease-in-out 4.5s;
+          transition: all ease-in-out 4.5s;
+  -webkit-transition: opacity 4200ms linear;
+     -moz-transition: opacity 4200ms linear;
+       -o-transition: opacity 4200ms linear;
+      -ms-transition: opacity 4200ms linear;
+          transition: opacity 4200ms linear;
+      -moz-animation: bg 60s linear infinite;
+   -webkit-animation: bg 60s linear infinite;
+        -o-animation: bg 60s linear infinite;
+       -ms-animation: bg 60s linear infinite;
+          animation: bg 60s linear infinite;
+  opacity: 1;
+  z-index: 3;
+}
+
+.invis {
+  opacity: 0;
+}
+
+.ontop {
+  z-index: 4;
+}
+
 .dawn{
     background-image: -ms-linear-gradient(top, #4E84CC 0%, #5AAFE0 10%, #FFD4F3 70%, #FFF5FD 100%);
     background-image: -moz-linear-gradient(top, #4E84CC 0%, #5AAFE0 10%, #FFD4F3 70%, #FFF5FD 100%);
@@ -46,11 +74,6 @@ body{
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4E84CC), color-stop(0.1, #5AAFE0), color-stop(0.7, #FFD4F3), color-stop(1, #FFF5FD));
     background-image: -webkit-linear-gradient(top, #4E84CC 0%, #5AAFE0 10%, #FFD4F3 70%, #FFF5FD 100%);
     background-image: linear-gradient(to bottom, #4E84CC 0%, #5AAFE0 10%, #FFD4F3 70%, #FFF5FD 100%);
-/*    background-image:linear-gradient(bottom,#f67c29 28%,#9cc7e2 64%);
-    background-image:-o-linear-gradient(bottom,#f67c29 28%,#9cc7e2 64%);
-    background-image:-moz-linear-gradient(bottom,#f67c29 28%,#9cc7e2 64%);
-    background-image:-webkit-linear-gradient(bottom,#f67c29 28%,#9cc7e2 64%);
-    background-image:-ms-linear-gradient(bottom,#f67c29 28%,#9cc7e2 64%);*/
 }
 .day{  
     background-image: -ms-linear-gradient(top, #4174CC 10%, #7ED3F7 80%, #E8F7FF 100%);
@@ -83,12 +106,6 @@ body{
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #022C6B), color-stop(0.5, #31387D), color-stop(0.9, #915D7E), color-stop(1, #BA84B0));
     background-image: -webkit-linear-gradient(top, #022C6B 20%, #31387D 50%, #915D7E 90%, #BA84B0 100%);
     background-image: linear-gradient(to bottom, #022C6B 20%, #31387D 50%, #915D7E 90%, #BA84B0 100%);
-
-    /*background-image:linear-gradient(bottom,#906090 28%,#001848 64%);
-    background-image:-o-linear-gradient(bottom,#906090 28%,#001848 64%);
-    background-image:-moz-linear-gradient(bottom,#906090 28%,#001848 64%);
-    background-image:-webkit-linear-gradient(bottom,#906090 28%,#001848 64%);
-    background-image:-ms-linear-gradient(bottom,#906090 28%,#001848 64%);*/
 }
 .night{
     background-image: -ms-linear-gradient(top, #030A1F 30%, #182A59 100%);
@@ -97,7 +114,7 @@ body{
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #030A1F), color-stop(1, #182A59));
     background-image: -webkit-linear-gradient(top, #030A1F 30%, #182A59 100%);
     background-image: linear-gradient(to bottom, #030A1F 30%, #182A59 100%);
-    z-index:2;
+    /*z-index:2;*/
     /*background-image:linear-gradient(bottom,#000000 28%,#000000 64%);
     background-image:-o-linear-gradient(bottom,#000000 28%,#000000 64%);
     background-image:-moz-linear-gradient(bottom,#000000 28%,#000000 64%);
@@ -150,7 +167,7 @@ body{
   animation:move-twink-back 200s linear infinite;
 }
 
-#viewport{
+.viewport{
     -webkit-perspective:1000;
     -moz-perspective:1000;
     -o-perspective:1000;
@@ -160,6 +177,7 @@ body{
     right:0;
     bottom:0;
     overflow:hidden;
+    min-height: 100%; 
 }
 #world{
     position:relative;
@@ -288,5 +306,13 @@ a {
 
 a:hover{
  text-shadow: 0px 0px 10px #FFF;
+}
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#wrapper {
+  
 }
